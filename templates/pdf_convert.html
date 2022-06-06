@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3 class="my-4">******* Pdf2Image Converter ********</h3>
+	
+
+
+<form method="POST" enctype="multipart/form-data">
+	<div class="row border rounded border-secondary p-2">
+		<div class="col-lg-6 col-md-6 col-sm-6 col-10 mx-auto">
+			{% csrf_token %}
+			{{ form.as_p}}
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-6 col-10 mx-auto py-4 py-sm-4">
+			<input type="submit" value="Convert" class="btn btn-primary mt-sm-2 px-4">
+		</div>
+	</div>
+		{% if zip_create %}
+			<div class="alert alert-success alert-dismissible fade show p-2 my-3" role="alert">
+			  <strong>Zip is ready to download.</strong>
+			  <a href="{{ zip_download_path }}" download="{{ zip_download_path }}"id='zip_download'>Click to Download</a>
+			</div>
+		
+		{% endif %}
+
+</form>
+
+{% endblock content %}

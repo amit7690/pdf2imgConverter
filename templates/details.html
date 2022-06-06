@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Detail Page  
+{% endblock %}
+
+{% block content %}
+<h3 class="my-4">Detail Page</h3>
+
+<table class="table my-4">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Pdfs</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+
+  {% for detail in page_obj.object_list  %}
+    <tbody>
+      <!-- <th scope="row">{{detail.id}}</th> -->
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>{{detail.title}}</td>
+      <td>{{detail.description}}</td>
+      <td><a href='{{detail.pdf.url}}' target="_blank">Pdf</a></td>
+      <td><span><a href="{% url 'update' detail.id %}">Edit</a></span>
+      <span><a href="{% url 'delete' detail.id %}" class="text-danger">Del</a></span></td>
+    </tbody>
+  {% endfor %}
+  
+</table>
+<center class="py-3">
+        {%if page_obj.has_previous %}
+            <a href="?page={{page_obj.previous_page_number}}" class="btn btn-primary btn-sm">Prev</a>
+        {% endif %}
+        <span class="btn btn-primary btn-sm">{{page_obj.number}}</span> {# the current page number #}
+        
+        {%if page_obj.has_next %} {# whether the next page exists #}
+            <a href="?page={{page_obj.next_page_number}}" class="btn btn-primary btn-sm">Next</a> {# link to the next page #}
+        {% endif %}
+    </center>
+{% endblock content %}
